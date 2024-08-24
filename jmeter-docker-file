@@ -1,0 +1,23 @@
+
+FROM openjdk:21
+
+ENV JMETER_VERSION "5.6.2"
+ENV JMETER_DIR /opt/jmeter/
+ENV JMETER_DL ${JMETER_DIR}dl/
+ENV JMETER_TESTS ${JMETER_DIR}tests/
+ENV JMETER_TEST_DATA ${JMETER_TESTS}data/
+ENV JMETER_TGZ "apache-jmeter-${JMETER_VERSION}.tgz"
+RUN cd /opt/
+RUN mkdir ${JMETER_DIR}
+RUN mkdir ${JMETER_DL}
+RUN mkdir ${JMETER_TESTS}
+RUN mkdir ${JMETER_TEST_DATA}
+
+WORKDIR ${JMETER_DL}
+
+RUN curl -O https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
+
+RUN tar -xvf ${JMETER_TGZ} -C ${JMETER_DIR}
+
+WORKDIR ${JMETER_DIR}apache-jmeter-${JMETER_VERSION}/
+
